@@ -1,0 +1,56 @@
+@import "animate.css";
+html {
+  height: 100%;
+}
+body {
+  overflow-y: scroll;
+  height: 100%;
+}
+.topic-item {
+  min-height: 90px;
+  padding: 1em;
+  border-bottom: solid 1px #DDD;
+}
+.topic-item:last-child {
+  border-bottom: none;
+}
+.call-to-action {
+  text-align: center;
+  margin-bottom: 1em;
+}
+.wrapper-votes {
+  text-align: center;
+}
+.wrapper-votes:hover button {
+  display: inline;
+}
+.wrapper-votes button {
+  animation-duration: 400ms;
+  -webkit-animation-duration: 400ms;
+  display: none;
+}
+.wrapper-votes .votes {
+  line-height: 50px;
+  font-size: 50px;
+}
+.topic-details .item-topic-label h2 {
+  padding: 1em;
+}
+.topic-details .item-topic-label h4 {
+  color: #b4b0b0;
+}
+.topic-details .item-topic-keywords span {
+  margin: 0 0.2em;
+}
+body > header.uk-grid {
+  color: #cdcaca;
+  background: #343131;
+  padding: 2em;
+  margin-bottom: 2em;
+}
+body > header.uk-grid h1 {
+  color: #cdcaca;
+}
+.submenu {
+  background: #CCC;
+}

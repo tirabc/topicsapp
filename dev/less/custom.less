@@ -1,0 +1,85 @@
+@import "animate.css";
+
+html{
+  height: 100%;
+}
+
+body{
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.topic-item{
+  min-height: 90px;
+  padding: 1em;
+  border-bottom: solid 1px #DDD;
+
+  &:last-child{
+    border-bottom: none;
+  }
+
+}
+
+.call-to-action{
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.wrapper-votes{
+
+  text-align: center;
+
+  &:hover{
+
+    button{
+      display: inline;
+    }
+
+  }
+
+  button{
+    animation-duration: 400ms;
+    -webkit-animation-duration: 400ms;
+    display: none;
+  }
+
+  .votes{
+
+    line-height: 50px;
+    font-size: 50px;
+
+  }
+
+}
+
+.topic-details{
+
+  .item-topic-label{
+    h2{
+      padding: 1em;
+    }
+    h4{
+      color: lighten(#343131,50%);
+    }
+  }
+
+  .item-topic-keywords{
+    span{
+      margin: 0 0.2em;
+    }
+  }
+
+}
+
+body>header.uk-grid{
+  h1{color: lighten(#343131,60%);}
+  color: lighten(#343131,60%);
+  background: #343131;
+  padding: 2em;
+  margin-bottom: 2em;
+}
+
+.submenu{
+  background: #CCC;
+}
+

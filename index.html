@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>TopicsApp</title>
+  <link rel="stylesheet" href="uikit/css/uikit.almost-flat.min.css">
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body>
+  
+  <header class="uk-grid"></header>
+
+  <div id="app" class="uk-width-2-3 uk-container-center"/>
+
+  <!-- templates -->
+
+  <script id="tpl-header" type="text/template">
+
+    <h1 class="uk-width-3-4">TopicsApp&nbsp;<span style="font-size:0.4em">by <a href="http://christianbarras.com">Christian Barras</a></span></h1>
+
+    <div class="uk-width-1-4">
+      <span>Hello, <b>{{user.firstname}}</b> !</span>
+    </div>
+
+  </script>
+
+  <script id="tpl-topics" type="text/template">
+
+    <div>
+
+      <aside class="uk-grid">
+
+        <ul class="uk-width-2-3 uk-subnav uk-subnav-line">
+
+          <li><a href="#topics">New topics</a></li>
+          <li><a href="#history">History</a></li>
+
+        </ul>
+
+        <div class="uk-width-1-3 call-to-action uk-text-right">
+
+          <button class="uk-button uk-button-primary" data-action="suggest-topic">
+            <i class="fa fa-plus"></i>Suggest a topic
+          </button>
+
+        </div>
+
+      </aside>
+
+      <div>
+
+        {{#topics}}
+
+        <div class="uk-grid topic-item">
+          <div class="uk-width-1-6 wrapper-votes">
+            <p class="votes animated bounceIn">{{votes}}</p>
+            <button class="uk-button uk-button-mini uk-button-primary animated fadeInDown" data-action="vote" data-id="{{id}}">+1</button>
+          </div>
+          <div class="uk-width-5-6 animated fadeIn">
+            <a href="#topics/{{id}}">
+              <h3 class="uk-width-5-6">{{label}}</h3>
+            </a>
+            <div class="uk-grid">
+              <p class="uk-width-2-3">
+                {{#splittedKeywords}}
+                  <span class="uk-badge">{{.}}</span>
+                {{/splittedKeywords}}
+              </p>
+              <div class="uk-width-1-3 uk-text-right">
+                <p>
+                  by <a href="javascript:void(0);" data-action="see-user" data-id="{{author}}">{{#owner}}{{firstname}}{{/owner}}</a>
+                </p>
+                <p>
+                  <i>{{timeago}}</i>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {{/topics}}
+
+      </div>
+
+    </div>
+
+  </script>
+
+  <script id="tpl-topic-suggest" type="text/template">
+
+    <div class="uk-modal">
+      <div class="uk-modal-dialog">
+        <header class="uk-modal-header">
+          <h1>Suggest a topic</h1>
+          <a class="uk-modal-close uk-close"></a>
+        </header>
+        <section>
+          <form id="suggest" class="uk-form uk-form-large">
+            <p><input type="text" class="uk-width-1-1" placeholder="Keywords" name="keywords"></p>
+            <p><input type="text" class="uk-width-1-1" placeholder="topic label" name="label"></p>
+            <p><textarea placeholder="Description" class="uk-width-1-1" name="description"></textarea></p>
+            <p></p>
+          </form>
+        </section>
+        <footer class="uk-modal-footer uk-text-right">
+          <button class="uk-button uk-modal-close">Close</button>
+          <input class="uk-button" type="submit" form="suggest" value="Suggest !">
+        </footer>
+      </div>
+    </div>
+
+  </script>
+
+  <script id="tpl-topic-details" type="text/template">
+    
+    <div class="topic-details uk-container">
+
+      <aside class="uk-grid">
+
+        <ul class="uk-width-2-3 uk-subnav uk-subnav-line">
+
+          <li><a href="#">Back</a></li>
+        
+        </ul>
+
+      </aside>
+
+      <div class="uk-grid item-topic-label">
+        <h3 class="uk-width-2-3">{{topic.label}}</h2>
+        <h4 class="uk-width-1-3">by {{topic.owner.firstname}} {{topic.owner.lastname}}
+      </div>
+
+      <div class=" item-topic-keywords uk-margin-top uk-margin-bottom">
+        {{#topic.splittedKeywords}}
+          <span class="uk-badge">{{.}}</span>
+        {{/topic.splittedKeywords}}
+      </div>
+
+      <div class="uk-grid item-topic-body">
+        <div>{{topic.description}}</div>
+      </div>
+
+    </div>
+
+  </script>
+
+  <script id="tpl-user-details" type="text/template">
+    
+    <div class="uk-modal">
+      <div class="uk-modal-dialog">
+        <a class="uk-modal-close uk-close"></a>
+        <header class="uk-modal-header">
+          <h1>{{firstname}} {{lastname}}</h1>
+        </header>
+        <section>
+          <div>
+            <p>{{firstname}}</p>
+            <p>{{lastname}}</p>
+            <p>{{title}}</p>
+          </div>
+        </section>
+        <footer class="uk-modal-footer uk-text-right">
+          <button class="uk-button uk-modal-close">Close</button>
+        </footer>
+      </div>
+    </div>
+
+  </script>
+
+  <!-- scripts -->
+
+  <!-- libs -->
+  <script src="js/libs/jquery-1.11.2.min.js"></script>
+  <script src="js/libs/underscore-min.js"></script>
+  <script src="js/libs/mustache.min.js"></script>
+  <script src="js/libs/backbone.js"></script>
+
+  <!-- optional libs -->
+  <script src="js/libs/backbone.localStorage-min.js"></script>
+  <script src="js/libs/jquery.serialize-object.js"></script>
+  <script src="js/libs/moment.min.js"></script>
+
+  <!-- models -->
+  <script src="js/app/models/topic.model.js"></script>
+  <script src="js/app/models/user.model.js"></script>
+
+  <!-- collections -->
+  <script src="js/app/collections/users.collection.js"></script>
+  <script src="js/app/collections/topics.collection.js"></script>
+
+  <!-- views -->
+  <script src="js/app/views/header.view.js"></script>
+  <script src="js/app/views/topics.view.js"></script>
+  <script src="js/app/views/topic.view.js"></script>
+  <script src="js/app/views/user.view.js"></script>
+  <script src="js/app/views/suggest.view.js"></script>
+
+  <!-- router -->
+  <script src="js/app/router.js"></script>
+
+  <!-- ui -->
+  <script src="uikit/js/uikit.min.js"></script>
+
+  <!-- main -->
+  <script src="js/app.js"></script>
+
+</body>
+</html>
