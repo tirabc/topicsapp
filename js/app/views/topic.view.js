@@ -1,7 +1,10 @@
 var TopicView = Backbone.View.extend({
 
   template: $("#tpl-topic-details").html(),
-  events: {},
+  events: {
+    "click [data-action='edit-description']": "editDescription",
+    "keyup [data-action='update-description']": "updateDescription"
+  },
 
   initialize: function( options ){
 
@@ -12,6 +15,8 @@ var TopicView = Backbone.View.extend({
 
     var splittedKeywords = this.topic.get( "keywords" ).split( " " );
     this.topic.set( "splittedKeywords" , splittedKeywords );
+
+    this.topic.on( "sync", this.render , this);
 
     _.bindAll(
       this,
@@ -31,6 +36,35 @@ var TopicView = Backbone.View.extend({
     this.$el.html( output );
 
     return this;
+  },
+
+  editDescription: function(e){
+
+    var $current = $(e.currentTarget);
+
+    $current.addClass("uk-hidden");
+
+    this.$el.find( "[data-action='update-description']" ).removeClass("uk-hidden");
+
+  },
+
+  updateDescription: function(e){
+
+
+    if( e.which != 13 || e.shiftKey ) return false;
+
+    e.preventDefault();
+
+    var $current = $(e.currentTarget);
+
+    var newText = $current.val();
+
+    this.topic.set( "description" , newText );
+
+    this.topic.save();
+
+    
+
   }
 
 

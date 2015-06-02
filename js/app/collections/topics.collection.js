@@ -7,7 +7,7 @@ var Topics = Backbone.Collection.extend({
     
     var filteredTopics = this.filter( function( topic ){
       var date = moment( topic.get("date") );
-      return moment().diff( date , 'minutes') > 1;
+      return moment().diff( date , 'minutes') > 10;
     });
 
     return filteredTopics;
